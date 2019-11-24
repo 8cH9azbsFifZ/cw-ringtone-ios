@@ -2,11 +2,10 @@ FROM debian:buster-slim
 
 MAINTAINER Gerolf Ziegenhain "gerolf.ziegenhain@gmail.com"
 
+ENV TEXT="test"
+
 RUN apt-get update
-RUN apt-get -y install ebook2cw ffmpeg
-RUN apt-get -y install build-essential
-RUN apt-get -y install yasm
-RUN apt-get -y install git
+RUN apt-get -y install ebook2cw 
 
 #https://gist.github.com/rafaelbiriba/7f2d7c6f6c3d6ae2a5cb
 RUN apt-get -y install autoconf automake build-essential git-core libass-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libvdpau-dev libvorbis-dev libx11-dev libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev libmp3lame-dev nasm gcc yasm && true
@@ -23,15 +22,11 @@ RUN cd ~/ffmpeg_sources; wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz; t
   --enable-libmp3lame --enable-nonfree; make -j8; make install; cp ffmpeg /usr/bin/; make distclean; hash -r
 RUN ffmpeg 2>&1 | head -n1
 
-# libfdk-aac-dev (non-free)
-
-# https://coderwall.com/p/df1hwg/create-iphone-ringtones-with-ffmpeg
 RUN mkdir /data
+
 ADD makeringtone.sh  /bin
 
 VOLUME /data
 WORKDIR /data
-
-ENV TEXT="test"
 
 ENTRYPOINT /bin/makeringtone.sh
