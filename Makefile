@@ -1,4 +1,4 @@
-VER=0.2
+VER=0.3
 build:
 	docker build . -t cw-ringtone-ios -t asdlfkj31h/cw-ringtone-ios:${VER} -t asdlfkj31h/cw-ringtone-ios:latest
 
