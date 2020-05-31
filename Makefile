@@ -1,6 +1,6 @@
+VER=0.2
 build:
-	docker build . -t cw-ringtone-ios
-	docker build . -t asdlfkj31h/cw-ringtone-ios:0.1
+	docker build . -t cw-ringtone-ios -t asdlfkj31h/cw-ringtone-ios:${VER} -t asdlfkj31h/cw-ringtone-ios:latest
 
 
 run:
@@ -8,6 +8,6 @@ run:
 
 
 push:
-	docker push asdlfkj31h/cw-ringtone-ios:0.1
-
+	docker push asdlfkj31h/cw-ringtone-ios:${VER}
+	docker push asdlfkj31h/cw-ringtone-ios:latest
 
