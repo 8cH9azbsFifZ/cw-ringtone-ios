@@ -1,13 +1,18 @@
-VER=0.3
+VER=0.4
+# Must be LOWERCASE
+USER=8ch9azbsfifz
+REPO=cw-ringtone-ios
+TAG=docker.pkg.github.com/${USER}/${REPO}/cw-ringtone-ios
 build:
-	docker build . -t cw-ringtone-ios -t asdlfkj31h/cw-ringtone-ios:${VER} -t asdlfkj31h/cw-ringtone-ios:latest
+	docker build . -t ${TAG}:${VER} -t ${TAG}:latest
 
+build_multi:
+	#docker buildx build --platform linux/amd64,linux/arm64 --push -t ${TAG}:${VER} .
+	docker buildx build --platform linux/amd64,linux/arm64,linux/i386,linux/arm/v7 --push -t ${TAG}:${VER} .
+	#docker buildx build --platform linux/arm64 -t ${TAG}:${VER} .
 
 run:
-	docker run -it -v $(shell pwd)/data:/data cw-ringtone-ios bash
-
+	docker run -it -v $(shell pwd)/data:/data ${TAG} bash
 
 push:
-	docker push asdlfkj31h/cw-ringtone-ios:${VER}
-	docker push asdlfkj31h/cw-ringtone-ios:latest
-
+	docker push ${TAG}:${VER}
