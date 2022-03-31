@@ -19,11 +19,17 @@ RUN cd ~/ffmpeg_sources; wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz; t
   --enable-libmp3lame --enable-nonfree; make -j8; make install; cp ffmpeg /usr/bin/; make distclean; hash -r
 RUN ffmpeg 2>&1 | head -n1
 
-RUN mkdir /data
+FROM debian:buster-slim
+
+RUN apt-get update && apt-get -y install ebook2cw
+COPY --from=0 /usr/bin/ffmpeg /usr/bin/ffmpeg
+COPY --from=0 /usr/lib/ /usr/lib/
+COPY --from=0 /lib/ /lib/
 
 ADD makeringtone.sh  /bin
 
-VOLUME /data
 WORKDIR /data
+
+VOLUME /data
 
 ENTRYPOINT /bin/makeringtone.sh
