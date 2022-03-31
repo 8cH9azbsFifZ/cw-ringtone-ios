@@ -1,8 +1,10 @@
 VER=0.4
+
 # Must be LOWERCASE
 USER=8ch9azbsfifz
 REPO=cw-ringtone-ios
 TAG=docker.pkg.github.com/${USER}/${REPO}/cw-ringtone-ios
+
 build:
 	docker build . -t ${TAG}:${VER} -t ${TAG}:latest
 
